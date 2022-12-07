@@ -21,17 +21,21 @@
             .then((data) => cardData(data))
 
         function cardData(data) {
+            // 
             data.sort(() => Math.random() - 0.5);
 
             data.forEach((card) => {
-                const cards = document.createElement('li');
-                cards.classList.add('card');
                 const template = `
-                    <div class="back-card"></div>
-                    <div class="front-card" style="background-position: ${card.position.x}px ${card.position.y}px;"></div>
+                    <li class="card">
+                        <div class="back-card"></div>
+                        <div class="front-card" style="background-position: ${card.position.x}px ${card.position.y}px;"></div>
+                    </li>
                 `;
-                cards.innerHTML = template;
-                $cardList.appendChild(cards);
+                // $cardList.innerHTML += template;
+
+                // innerHtml보다 작업이 덜 드므로 빠르다.
+                // https://developer.mozilla.org/ko/docs/Web/API/Element/insertAdjacentHTML
+                $cardList.insertAdjacentHTML('beforeend', template);
             })
         }
     </script>

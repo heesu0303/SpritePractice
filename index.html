@@ -5,53 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>스프라이트 기법 써보기</title>
+    <link rel="icon" href="img/pikachu.png">
+    <title>✨스프라이트 기법 써보기✨</title>
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        li {
-            width: 100px;
-            height: 100px;
-            border: none;
-            background-image: url(img/pokemon.png);
-            background-repeat: no-repeat;
-        }
-
-        li:nth-child(1) {
-            background-position: 0 0;
-        }
-
-        li:nth-child(2) {
-            background-position: -100px 0;
-        }
-
-        li:nth-child(3) {
-            background-position: -200px 0;
-        }
-
-        li:nth-child(4) {
-            background-position: -300px 0;
-        }
-
-        li:nth-child(5) {
-            background-position: -400px 0;
-        }
-    </style>
 </head>
 
 <body>
-    <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ul>
+    <ul class="list-card"></ul>
+
+    <script>
+        const $cardList = document.querySelector('.list-card');
+
+        const getCardData = fetch("card.json")
+            .then((res) => res.json())
+            .then((data) => cardData(data))
+
+        function cardData(data) {
+            data.sort(() => Math.random() - 0.5);
+
+            data.forEach((card) => {
+                const cards = document.createElement('li');
+                cards.classList.add('card');
+                const template = `
+                    <div class="back-card"></div>
+                    <div class="front-card" style="background-position: ${card.position.x}px ${card.position.y}px;"></div>
+                `;
+                cards.innerHTML = template;
+                $cardList.appendChild(cards);
+            })
+        }
+    </script>
 </body>
 
 </html>

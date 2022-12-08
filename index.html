@@ -16,14 +16,16 @@
     <script>
         const $cardList = document.querySelector('.list-card');
 
+        // json 데이터 가져오기
         const getCardData = fetch("card.json")
             .then((res) => res.json())
             .then((data) => cardData(data))
 
         function cardData(data) {
-            // 
+            // 랜덤 배열 생성
             data.sort(() => Math.random() - 0.5);
 
+            // 데이터 출력
             data.forEach((card) => {
                 const template = `
                     <li class="card">
@@ -31,6 +33,8 @@
                         <div class="front-card" style="background-position: ${card.position.x}px ${card.position.y}px;"></div>
                     </li>
                 `;
+
+                // HTML에 추가하기
                 // $cardList.innerHTML += template;
 
                 // innerHtml보다 작업이 덜 드므로 빠르다.
